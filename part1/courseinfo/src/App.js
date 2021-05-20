@@ -1,15 +1,12 @@
 import React from 'react'
 
-const Header = (props) => {
+const Header = ({course}) => {
   return (
     <>
-      <h1>{props.course}</h1>
+      <h1>{course}</h1>
     </>
   )
 }
-
-
-
 
 const Content = (props) => {
   return (
@@ -28,13 +25,11 @@ const Part = (props) => {
   )
 }
 
-
 const Total = (props) => {
   return (
     <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
   )
 }
-
 
 const App = () => {
   const course = {
