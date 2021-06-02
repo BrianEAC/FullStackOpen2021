@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Search = ({ name, change }) => {
   return (
@@ -32,27 +33,33 @@ const PersonForm = ({ submit, nameValue, nameChange, numberValue, numberChange }
   )
 }
 
-const Persons = ({persons}) => {
+const Persons = ({ persons }) => {
   return (
     <>
-    <h2>Numbers</h2>
+      <h2>Numbers</h2>
       <ul>
         {persons.map(person => <li key={person.number}>{person.name} : {person.number}</li>)}
       </ul>
-      </>
+    </>
   )
 }
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-1234567' }
-  ])
+  const [persons, setPersons] = useState([])
   const [searchName, setSearchName] = useState()
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+  })
+
   const addPerson = (e) => {
     e.preventDefault()
-    if (persons.find(person => person.name === newName) !== undefined || persons.find(person => person.number ===newNumber)!== undefined) {
+    if (persons.find(person => person.name === newName) !== undefined || persons.find(person => person.number === newNumber) !== undefined) {
       alert(`${newName} already exists in phonebook`)
     }
     else {
@@ -92,7 +99,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Search name={searchName} change={searchChange} />
-      <PersonForm submit={addPerson} nameValue={newName} nameChange={nameChange} numberValue={newNumber} numberChange={numberChange}/>
+      <PersonForm submit={addPerson} nameValue={newName} nameChange={nameChange} numberValue={newNumber} numberChange={numberChange} />
       <Persons persons={filteredPersons} />
     </div>
   )
