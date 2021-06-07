@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import personsService from './services/persons'
-import axios from 'axios'
+
 
 const Search = ({ name, change }) => {
   return (
@@ -34,12 +34,12 @@ const PersonForm = ({ submit, nameValue, nameChange, numberValue, numberChange }
   )
 }
 
-const Persons = ({ persons }) => {
+const Persons = ({ persons, handleDelete }) => {
   return (
     <>
       <h2>Numbers</h2>
       <ul>
-        {persons.map(person => <li key={person.number}>{person.name} : {person.number}</li>)}
+        {persons.map(person => <li key={person.number}>{person.name} : {person.number}<button onClick={() => handleDelete(person.id, person.name)}>delete</button></li>)}
       </ul>
     </>
   )
@@ -56,11 +56,11 @@ const App = () => {
       .then(response => {
         setPersons(response.data)
       })
-  }, [])
+  })
 
   const addPerson = (e) => {
     e.preventDefault()
-    if (persons.find(person => person.name === newName) !== undefined || persons.find(person => person.number === newNumber) !== undefined) {
+    if (persons.find(person => person.name === newName) || persons.find(person => person.number === newNumber)) {
       alert(`${newName} already exists in phonebook`)
     }
     else {
@@ -72,7 +72,17 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         }
-        )}
+        )
+    }
+  }
+
+  const erasePerson = (id, name) => {
+    if (window.confirm(`Do you really want to delete ${name}?`)) {
+      personsService
+        .erase(id)
+        .then(response => setPersons(persons.concat(response.data)))
+      setSearchName('')
+    }
   }
 
   const nameChange = (e) => {
@@ -105,7 +115,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Search name={searchName} change={searchChange} />
       <PersonForm submit={addPerson} nameValue={newName} nameChange={nameChange} numberValue={newNumber} numberChange={numberChange} />
-      <Persons persons={filteredPersons} />
+      <Persons persons={filteredPersons} handleDelete={erasePerson} />
     </div>
   )
 }
