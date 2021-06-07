@@ -69,7 +69,7 @@ const App = () => {
       .then(response => {
         setPersons(response.data)
       })
-  })
+  }, [])
 
   const addPerson = (e) => {
     e.preventDefault()
@@ -96,11 +96,14 @@ const App = () => {
     if (window.confirm(`Do you really want to delete ${name}?`)) {
       personsService
         .erase(id)
-        .then(response => setPersons(persons.concat(response.data)))
-      setSearchName('')
-      setDeleted(`'${name}' was deleted`)
-      setTimeout(() => { setDeleted(null) }, 3000)
-    }
+        .then(() => {
+          setPersons(persons.filter((p) => p.id !== id))
+          setSearchName('')
+          setDeleted(`'${name}' was deleted`)
+          setTimeout(() => { setDeleted(null) }, 3000);
+        }
+        )
+  }
   }
 
 
