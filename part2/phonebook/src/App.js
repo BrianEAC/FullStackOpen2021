@@ -60,7 +60,7 @@ const App = () => {
 
   const addPerson = (e) => {
     e.preventDefault()
-    if (persons.find(person => person.name === newName) || persons.find(person => person.number === newNumber)) {
+    if (persons.find(person => person.name === newName) !== undefined || persons.find(person => person.number === newNumber) !== undefined) {
       alert(`${newName} already exists in phonebook`)
     }
     else {
@@ -84,6 +84,7 @@ const App = () => {
       setSearchName('')
     }
   }
+
 
   const nameChange = (e) => {
     setNewName(e.target.value)
