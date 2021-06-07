@@ -45,11 +45,24 @@ const Persons = ({ persons, handleDelete }) => {
   )
 }
 
+const Notification = ({ message, thisClass }) => {
+  if (message === null) {
+    return null
+  }
+  return (
+    <div className={thisClass}>
+      {message}
+    </div>
+  )
+}
+
 const App = () => {
   const [persons, setPersons] = useState([])
   const [searchName, setSearchName] = useState()
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [theMessage, setMessage] = useState(null)
+  const [theDeletedMessage, setDeleted] = useState(null)
   useEffect(() => {
     personsService
       .getAll()
@@ -60,7 +73,7 @@ const App = () => {
 
   const addPerson = (e) => {
     e.preventDefault()
-    if (persons.find(person => person.name === newName) !== undefined || persons.find(person => person.number === newNumber) !== undefined) {
+    if (persons.find(person => person.name === newName) || persons.find(person => person.number === newNumber)) {
       alert(`${newName} already exists in phonebook`)
     }
     else {
@@ -69,8 +82,11 @@ const App = () => {
         .create(personObject)
         .then(response => {
           setPersons(persons.concat(response.data))
+          setMessage(`'${personObject.name}' was added`)
           setNewName('')
           setNewNumber('')
+          setTimeout(() => { setMessage(null) }, 3000)
+
         }
         )
     }
@@ -82,6 +98,8 @@ const App = () => {
         .erase(id)
         .then(response => setPersons(persons.concat(response.data)))
       setSearchName('')
+      setDeleted(`'${name}' was deleted`)
+      setTimeout(() => { setDeleted(null) }, 3000)
     }
   }
 
@@ -114,6 +132,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={theMessage} thisClass='added' />
+      <Notification message={theDeletedMessage} thisClass='deleted' />
       <Search name={searchName} change={searchChange} />
       <PersonForm submit={addPerson} nameValue={newName} nameChange={nameChange} numberValue={newNumber} numberChange={numberChange} />
       <Persons persons={filteredPersons} handleDelete={erasePerson} />
