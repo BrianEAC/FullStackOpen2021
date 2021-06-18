@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import countriesServices from './services/countriesServices'
 
 const Countries = ({ countries }) => {
-  if (countries.length <= 10 || countries.length > 1) {
+  if (countries.length <= 20 || countries.length > 1) {
     return (
-      <div>
+      <div className="countryList">
         {countries.map(country => {
           return (
             <CountryListItems country={country} />
@@ -27,7 +27,7 @@ const CountryListItems = ({ country }) => {
 }
 
 const CountryInfo = ({ country }) => {
-  return (<div>
+  return (<div className="countryInfo">
     <h1>{country.name}</h1>
     <h2>{country.nativeName}</h2>
     <img src={country.flag} alt='flag'></img>
@@ -80,7 +80,7 @@ function App() {
     )
   }
 
-  if (filteredCountries.length > 10) {
+  if (filteredCountries.length > 20) {
     return (
       <div className="App">
         <Search name={searchCountry} change={searchChange} />

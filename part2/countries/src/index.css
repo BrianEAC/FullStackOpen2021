@@ -16,3 +16,15 @@ img {
   max-width: 300px;
   max-height: 300px;
 }
+
+
+
+.App{
+  display: grid;
+  text-align: center;
+}
+
+.countryList {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;  
+}
