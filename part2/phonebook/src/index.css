@@ -12,6 +12,62 @@ code {
     monospace;
 }
 
+h1 {
+  font-family: sans-serif;
+  color: #6C5A49;
+}
+
+.app {
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  justify-items: center;
+}
+
+.right {
+  margin: 0 auto;
+}
+
+.right h2 {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif  
+}
+/*  
+
+.persons {
+  grid-area: content;
+}
+
+.left {
+  grid-area: nav;
+}
+
+.header {
+  grid-area: header;
+  color: #271F30;
+  background-color: lightyellow;
+  padding: 20px;
+  border: solid 2px black;
+} 
+
+.searchForm {
+
+}
+
+.personFormTitle {
+
+
+}
+
+.personForm {
+  
+}
+
+.persons {
+ 
+}
+*/
 .added {
   color: green;
   background: lightgrey;
