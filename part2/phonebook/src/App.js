@@ -28,7 +28,7 @@ const PersonForm = ({
           number: <input value={numberValue} onChange={numberChange} />
         </div>
         <div>
-          <button type="submit">add</button>
+          <button type="submit" >add</button>
         </div>
       </form>
     </>
