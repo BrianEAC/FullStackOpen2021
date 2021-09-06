@@ -12,10 +12,7 @@ logger.info("connecting to port", config.PORT);
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl);
 
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useFindAndModify", false);
-mongoose.set("useCreateIndex", true);
-mongoose.set("useUnifiedTopology", true);
+
 
 app.use(cors());
 app.use(express.json());
