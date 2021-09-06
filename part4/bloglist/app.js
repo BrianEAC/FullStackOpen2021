@@ -1,21 +1,24 @@
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const config = require("./utils/config");
+const logger = require("./utils/logger");
 
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const config = require('./utils/config')
-const logger = require('./utils/logger')
+const mongoose = require("mongoose");
+const blogsRouter = require("./controllers/blogs");
 
-const mongoose = require('mongoose')
-const blogsRouter = require('./controllers/blogs')
+logger.info("connecting to port", config.PORT);
 
-logger.info('connecting to port', config.PORT)
+const mongoUrl = config.MONGODB_URI;
+mongoose.connect(mongoUrl);
 
-const mongoUrl = config.MONGODB_URI
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
+mongoose.set("useUnifiedTopology", true);
 
-app.use(cors())
-app.use(express.json())
-app.use('/api/blogs', blogsRouter)
+app.use(cors());
+app.use(express.json());
+app.use("/api/blogs", blogsRouter);
 
-
-module.exports = app
+module.exports = app;
