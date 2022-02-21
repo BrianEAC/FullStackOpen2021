@@ -1,6 +1,6 @@
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJ22IUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdlbmNvT2xpdmUiLCJpZCI6IjYyMTNjZTMzM2ZlYjU5OWIwODQ0OWU2NyIsImlhdCI6MTY0NTQ2NzM3OX0.O_h7Hc08kIzTJUkP-CkPLWirVFsab1nUqdQGDkldUnA
+Authorization: bearer ehhhyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdlbmNvT2xpdmUiLCJpZCI6IjYyMTNjZTMzM2ZlYjU5OWIwODQ0OWU2NyIsImlhdCI6MTY0NTQ2NzM3OX0.O_h7Hc08kIzTJUkP-CkPLWirVFsab1nUqdQGDkldUnA
 
 {
   "title": "gencoOlive",
