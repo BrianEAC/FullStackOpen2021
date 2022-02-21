@@ -1,9 +1,9 @@
-GET http://localhost:3003/api/blogs
+POST http://localhost:3003/api/blogs/
 Content-Type: application/json
 
 {
-  "title": "aldfsal",
-  "author": "laldsfsa",
-  "url": "Strinsdfsdfg",
-  "likes": 12234234
+  "title": "aaasdasaadadsasdsds",
+  "author": "asf2112sdasd",
+  "url": "asdagsadasf",
+  "userId": "6213c7e553c3e64f0253b845"
 }
