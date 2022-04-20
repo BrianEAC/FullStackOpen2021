@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
-import BlogForm from "./components/blogForm";
+import BlogForm from "./components/BlogForm";
+import Notification from './components/Notification';
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -12,6 +13,7 @@ const App = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+  const [theMessage, setMessage] = useState(null)
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -58,12 +60,15 @@ const App = () => {
 
     try {
       await blogService.create(blogObject)
+      setMessage(`New Blog! '${blogObject.title}' by '${blogObject.author}'`)
       setTitle('')
       setAuthor('')
       setUrl('')
-      blogService.getAll().then(blogs => {
-        setBlogs(blogs)
-      })
+      let newBlogs = await blogService.getAll()
+      setBlogs(newBlogs)
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000)
   } catch (e) {
     console.log(e.message)}
   }
@@ -122,6 +127,7 @@ const App = () => {
           <div>
             <h2>blogs</h2>
             <p>logged in as {user.username}</p><button type='submit' onClick={handleLogout}>log out</button>
+            <Notification message={theMessage} thisClass={'added'} />
             {blogs.map(blog =>
                 <Blog key={blog.id} blog={blog} />
             )}
